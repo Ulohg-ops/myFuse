@@ -11,9 +11,6 @@
 #include <openssl/err.h>
 #include <openssl/rand.h>
 
-// -------------------------
-// 您的 AES-256 CBC encrypt()/decrypt()
-// -------------------------
 int encrypt(unsigned char *plaintext, int plaintext_len,
             unsigned char *key, unsigned char *iv,
             unsigned char *ciphertext) {
@@ -76,9 +73,6 @@ int decrypt(unsigned char *ciphertext, int ciphertext_len,
     return plaintext_len;
 }
 
-// -------------------------
-// 其他結構 & 函式
-// -------------------------
 void init_openssl() {
     OpenSSL_add_all_algorithms();
     ERR_load_crypto_strings();
@@ -504,7 +498,6 @@ static int do_utimens(const char *path, const struct timespec ts[2]) {
     return 0;
 }
 
-// truncate (簡化對密文)
 static int do_truncate(const char *path, off_t size) {
     file_entry *current = root;
     char *copy = strdup(path);

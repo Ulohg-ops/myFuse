@@ -310,6 +310,42 @@ static int do_rmdir(const char *path) {
     }
     return -ENOENT;
 }
+
+static int do_truncate(const char *path, off_t size) {
+    file_entry *current = root;
+    char *copy = strdup(path);
+    char *tok = strtok(copy, "/");
+    while(tok) {
+        current = find_entry(current, tok);
+        if(!current) {
+            free(copy);
+            return -ENOENT;
+        }
+        tok = strtok(NULL, "/");
+    }
+    free(copy);
+
+    if(current->is_directory)
+        return -EISDIR;
+
+    if((size_t)size > current->size) {
+        unsigned char *new_c = realloc(current->content, size);
+        if(!new_c && size>0) return -ENOMEM;
+        if(new_c) {
+            memset(new_c+current->size, 0, size - current->size);
+            current->content = new_c;
+        }
+        current->size = size;
+    } else {
+        unsigned char *new_c = realloc(current->content, size);
+        if(!new_c && size>0) return -ENOMEM;
+        current->content = new_c;
+        current->size = size;
+    }
+    clock_gettime(CLOCK_REALTIME, &current->mtime);
+    return 0;
+}
+
 static int do_unlink(const char *path) {
     char name[256];
     file_entry *parent = get_parent(path, name);
@@ -358,7 +394,7 @@ static struct fuse_operations operations = {
     .rmdir    = do_rmdir,    
     .release  = do_release,  
     .unlink   = do_unlink, 
-
+    .truncate = do_truncate,
 
 };
 
