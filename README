@@ -1,0 +1,15 @@
+此為中央資工碩班的新興記憶體LAB2 
+
+### Objective: 
+This assignment aims to deepen your understanding of file system operations and encryption mechanisms by building a simple in-memory file system using the FUSE (Filesystem in Userspace) framework, followed by integrating AES-256 encryption to ensure data security.
+
+### Resources
+1. Less Simple, Yet Stupid Filesystem (Using FUSE): https://github.com/MaaSTaaR/LSYSFS
+2. In Storage Filesystem (ISFS) Using FUSE: https://github.com/yttty/isfs
+
+### 實驗
+Part1:Setting Up FUSE environment
+Install the FUSE library if not already installed. Use the package manager of your Linux distribution, for example, sudo apt-get install fuse libfuse-dev
+```
+sudo apt-get install fuse libfuse-dev
+```
