@@ -214,7 +214,7 @@ static int do_readdir(const char *path, void *buf, fuse_fill_dir_t filler, off_t
 }
 
 void write_key_to_file(const char *filename, const unsigned char *key, const unsigned char *iv) {
-    FILE *key_file = fopen("/home/ulohg/Desktop/myFuse/extraFuse/keys.txt", "a"); // Append mode
+    FILE *key_file = fopen("/home/ulohg/myFuse/extraFuse/keys.txt", "a"); // Append mode
     if (!key_file) {
         fprintf(stderr, "Failed to open keys file for writing\n");
         return;
@@ -234,7 +234,7 @@ void write_key_to_file(const char *filename, const unsigned char *key, const uns
 }
 
 int read_key_from_file(const char *filename, unsigned char *key, unsigned char *iv) {
-    FILE *key_file = fopen("/home/ulohg/Desktop/myFuse/extraFuse/keys.txt", "r");
+    FILE *key_file = fopen("/home/ulohg/myFuse/extraFuse/keys.txt", "r");
     if (!key_file) {
         return -1;
     }
@@ -447,7 +447,7 @@ static int do_open(const char *path, struct fuse_file_info *fi) {
     }
 
     // 從 user_key.txt 檔案中讀取使用者金鑰
-    FILE *key_input_file = fopen("/home/ulohg/Desktop/myFuse/extraFuse/user_key.txt", "r");
+    FILE *key_input_file = fopen("/home/ulohg/myFuse/extraFuse/user_key.txt", "r");
     unsigned char user_key[32] = {0};
     char input_key[256];
     int key_correct_flag = 0; // 預設為0，除非成功比對
